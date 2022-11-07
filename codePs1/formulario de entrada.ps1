@@ -114,4 +114,5 @@ $listboxTipoConta.DisplayMember = "TipoCod"
 
 
 $labelSgConta.Text = "sgConta: " + (Get-Content -path ($pathdata +"\ixSgConta.txt")) + ":" #preenche o label
-[void]$formContabil.ShowDialog()
+[void]$menu.ShowDialog()
+#[void]$formContabil.ShowDialog()

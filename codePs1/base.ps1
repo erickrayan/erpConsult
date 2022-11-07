@@ -2,6 +2,63 @@ Add-Type -AssemblyName System.Windows.forms
 Add-Type -Assemblyname System.Drawing
 Add-Type -AssemblyName PresentationFramework #para janelas de erro ou sucesso
 
+#menu ####################################################################################################################
+#Janela principal menu
+$menu = New-Object System.Windows.Forms.Form
+#$menu.text = "Menu principal"
+$menu.size = New-Object System.Drawing.Size(350,500)
+$menu.StartPosition = "CenterScreen"
+
+#listbox do menu
+$listBoxLojas = New-Object System.Windows.Forms.ListBox
+$listBoxLojas.Location = New-Object System.Drawing.Size(20,140)
+$listBoxLojas.Size = New-Object System.Drawing.Size(290,20)
+$listBoxLojas.Height = 80
+$menu.Controls.Add($listBoxLojas)
+
+#Label menu
+$mLabel = New-Object System.Windows.Forms.Label
+$mLabel.Text = "Menu principal"
+$mLabel.Location =  New-Object System.Drawing.Size(20,15)
+$mLabel.AutoSize = $true
+$menu.Controls.Add($mLabel)
+
+#botão inserir conta contabil
+$inserirCContabeis = New-Object System.Windows.Forms.Button 
+$inserirCContabeis.Location = New-Object System.Drawing.Size(20,50)
+$inserirCContabeis.Size = New-Object System.Drawing.Size(130,40)
+$inserirCContabeis.Text = "Cadastrar contas contabeis"
+$inserirCContabeis.Add_click({
+    [void]$formContabil.ShowDialog()
+})
+$menu.Controls.Add($inserirCContabeis)
+
+#botão inserir centro de custo
+$inserirCCusto = New-Object System.Windows.Forms.Button 
+$inserirCCusto.Location = New-Object System.Drawing.Size(180,50)
+$inserirCCusto.Size = New-Object System.Drawing.Size(130,40)
+$inserirCCusto.Text = "Cadastrar centros de custo"
+
+$menu.Controls.Add($inserirCCusto)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Conta Contabil ####################################################################################################################
+
 #Janela principal
 $formContabil = New-Object System.Windows.Forms.Form
 $formContabil.text = "Conta contabil"
