@@ -2,6 +2,11 @@ Add-Type -AssemblyName System.Windows.forms
 Add-Type -Assemblyname System.Drawing
 Add-Type -AssemblyName PresentationFramework #para janelas de erro ou sucesso
 
+$nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
+Set-Location $nomePath
+$pathData = $nomePath.Substring(0, $nomePath.lastIndexOf('\')) + "\Data"
+
+
 #menu ####################################################################################################################
 #Janela principal menu
 $menu = New-Object System.Windows.Forms.Form
@@ -9,12 +14,7 @@ $menu = New-Object System.Windows.Forms.Form
 $menu.size = New-Object System.Drawing.Size(350,500)
 $menu.StartPosition = "CenterScreen"
 
-#listbox do menu
-$listBoxLojas = New-Object System.Windows.Forms.ListBox
-$listBoxLojas.Location = New-Object System.Drawing.Size(20,140)
-$listBoxLojas.Size = New-Object System.Drawing.Size(290,20)
-$listBoxLojas.Height = 80
-$menu.Controls.Add($listBoxLojas)
+
 
 #Label menu
 $mLabel = New-Object System.Windows.Forms.Label
@@ -38,7 +38,6 @@ $inserirCCusto = New-Object System.Windows.Forms.Button
 $inserirCCusto.Location = New-Object System.Drawing.Size(180,50)
 $inserirCCusto.Size = New-Object System.Drawing.Size(130,40)
 $inserirCCusto.Text = "Cadastrar centros de custo"
-
 $menu.Controls.Add($inserirCCusto)
 
 
@@ -121,6 +120,23 @@ $botaoOk.Size = New-Object System.Drawing.Size(100,20)
 $botaoOk.Text = "Ok"
 $formContabil.Controls.Add($botaoOk)
 
+#botao salvar
+$botaoSalvar = New-Object System.Windows.Forms.Button #botão ok
+$botaoSalvar.Location = New-Object System.Drawing.Size(20,300)
+$botaoSalvar.Size = New-Object System.Drawing.Size(100,20)
+$botaoSalvar.Text = "Gerar relatorio"
+$formContabil.Controls.Add($botaoSalvar)
+
+
+#Label salvo
+$labelSalvo = New-Object System.Windows.Forms.Label
+$labelSalvo.Location =  New-Object System.Drawing.Size(130,300)
+$labelSalvo.AutoSize = $true
+$formContabil.Controls.Add($labelSalvo)
+
+$OpenFileDialog = New-Object System.Windows.Forms.SaveFileDialog
+$OpenFileDialog.initialDirectory = $nomePath
+$openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
 
 
 #Groupbox para botoes radiais status da conta

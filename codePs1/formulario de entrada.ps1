@@ -1,6 +1,3 @@
-$nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
-Set-Location $nomePath
-$pathData = $nomePath.Substring(0, $nomePath.lastIndexOf('\')) + "\Data"
 
 
 
@@ -32,7 +29,7 @@ $botaoOk.Add_click({ #essa parte eh executada ao clicar no botao ok
         else{ #se estiver tudo correto
 
             #preenche variaveis para adicionar no arquivo
-            $sgconta=(Get-Content -path ($pathdata +"\ixSgConta.txt"))
+            $sgconta=(Get-Content -path ($pathdata + "\ixSgConta.txt"))
             $cdConta=$textboxCodConta.Text
             $dsConta=$textboxDescrConta.Text
             
@@ -112,7 +109,22 @@ foreach ($item in $data) {
 
 $listboxTipoConta.DisplayMember = "TipoCod"
 
+$botaoSalvar.Add_click({
+    if ($openFileDialog.ShowDialog() -eq "OK"){
+        $labelSalvo.Text = $OpenFileDialog.FileName #remover essa linha
+        [System.Windows.MessageBox]::Show("Arquivo salvo em: $($OpenFileDialog.FileName)", 'Sucesso') #teste
+
+    }
+    
+})
+
 
 $labelSgConta.Text = "sgConta: " + (Get-Content -path ($pathdata +"\ixSgConta.txt")) + ":" #preenche o label
 [void]$menu.ShowDialog()
+
 #[void]$formContabil.ShowDialog()
+
+
+
+#objeto para pesquisa de arquivos nativa do windows
+#converter txt para csv
