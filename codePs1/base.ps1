@@ -2,16 +2,14 @@ Add-Type -AssemblyName System.Windows.forms
 Add-Type -Assemblyname System.Drawing
 Add-Type -AssemblyName PresentationFramework #para janelas de erro ou sucesso
 
-$nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
-Set-Location $nomePath
-$pathData = $nomePath.Substring(0, $nomePath.lastIndexOf('\')) + "\Data"
+
 
 
 #menu ####################################################################################################################
 #Janela principal menu
 $menu = New-Object System.Windows.Forms.Form
 #$menu.text = "Menu principal"
-$menu.size = New-Object System.Drawing.Size(350,500)
+$menu.size = New-Object System.Drawing.Size(350,200)
 $menu.StartPosition = "CenterScreen"
 
 
