@@ -1,18 +1,14 @@
-
-
 $nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
 Set-Location $nomePath
 $pathData = $nomePath.Substring(0, $nomePath.lastIndexOf('\')) + "\Data"
 
-. .\base.ps1 #carrega os comandos para a interface grafica
+. .\rpcContaContabilForm.ps1 #carrega os comandos para a interface grafica
 
 $data = @(
 [pscustomobject]@{NomeCod='Conta';TamanhoCod=9;TipoCod='Receita';PrefixCod='1'}
 [pscustomobject]@{NomeCod='Conta';TamanhoCod=9;TipoCod='Despesa';PrefixCod='2'}
 [pscustomobject]@{NomeCod='CentroCusto';TamanhoCod=7}
 )
-
-
 
 $botaoOk.Add_click({ #essa parte eh executada ao clicar no botao ok
     if ("" -eq $textboxDescrConta.Text -or $textboxCodConta.Text.Length -ne $listboxTipoConta.SelectedItem.TamanhoCod){
@@ -72,8 +68,6 @@ $textboxCodConta.Add_TextChanged({ #evento acionado toda vez que a caixa de text
     }
 })
 
-
-
 $listboxTipoConta.add_SelectedIndexChanged({ #ativado ao mudar a selecao da listbox
 
     #ativa os elementos de entrada
@@ -101,15 +95,6 @@ $listboxTipoConta.add_SelectedIndexChanged({ #ativado ao mudar a selecao da list
 
 
 
-foreach ($item in $data) {
-    if($item.NomeCod -eq 'Conta' ){
-        [void]$listboxTipoConta.Items.Add($item)
-    }
-}
-
-
-
-
 $listboxTipoConta.DisplayMember = "TipoCod"
 
 $botaoSalvar.Add_click({
@@ -122,12 +107,13 @@ $botaoSalvar.Add_click({
 })
 
 
+
 $labelSgConta.Text = "sgConta: " + (Get-Content -path ($pathdata +"\ixSgConta.txt")) + ":" #preenche o label
-[void]$menu.ShowDialog()
 
-#[void]$formContabil.ShowDialog()
+foreach ($item in $data) {
+    if($item.NomeCod -eq 'Conta' ){
+        [void]$listboxTipoConta.Items.Add($item)
+    }
+}
 
-
-
-#objeto para pesquisa de arquivos nativa do windows
-#converter txt para csv
+[void]$formContabil.ShowDialog()
