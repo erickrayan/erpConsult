@@ -13,7 +13,7 @@ $botaoOk.Add_click({ #essa parte é executada ao clicar no botão ok
     }
     else{
         $cont=0
-        foreach ($linha in Get-Content .\tbSgConta.txt){ #verifica se já existe algum código de conta igual
+        foreach ($linha in (Get-Content -path ($pathdata +"\tbSgCCusto.txt"))){ #verifica se já existe algum código de conta igual
             if(($linha -split " \| ")[1] -eq $textboxCodConta.text){
                 $cont++
                 break
@@ -25,7 +25,7 @@ $botaoOk.Add_click({ #essa parte é executada ao clicar no botão ok
         else{ #se estiver tudo correto
 
             #preenche variáveis para adicionar no arquivo
-            $sgconta=(Get-Content .\ixSgConta.txt)
+            $sgconta=(Get-Content -path ($pathdata +"\ixSgCCusto.txt"))
             $cdConta=$textboxCodConta.Text
             $dsConta=$textboxDescrConta.Text
             
@@ -36,14 +36,14 @@ $botaoOk.Add_click({ #essa parte é executada ao clicar no botão ok
                 [string]$stConta=02
             }
 
-            Add-Content -Value "$sgconta | $cdConta | $dsConta | $stConta" -Path .\tbSgConta.txt
+            Add-Content -Value "$sgconta | $cdConta | $dsConta | $stConta" -Path ($pathdata +"\tbSgCCusto.txt")
 
-            $ultimo=Get-Content .\ixSgConta.txt #variável recebe conteúdo do texto
+            $ultimo=(Get-Content -path ($pathdata + "\ixSgCCusto.txt")) #variável recebe conteúdo do texto
             [int]$ultimo=$ultimo #variável é convertida para int
             $ultimo++ #e é incrementada
             [string]$ultimo=([string]$ultimo).PadLeft(4,'0') #variável volta a ser string padronizada com zeros à esquerda
-            Clear-Content -Path .\ixSgConta.txt 
-            Add-Content -Value $ultimo -Path .\ixSgConta.txt
+            Clear-Content -Path ($pathdata +"\ixSgCCusto.txt")
+            Add-Content -Value $ultimo -Path ($pathdata +"\ixSgCCusto.txt")
             $labelSgConta.Text = "sgCCusto: " + $ultimo + ":"
 
             
@@ -101,5 +101,5 @@ foreach ($item in $data) {
 $listboxTipoConta.DisplayMember = "TipoCod"
 
 
-$labelSgCcusto.Text = "sgCusto: " + (Get-Content .\ixSgConta.txt) + ":" #preenche o label
+$labelSgCcusto.Text = "sgCusto: " + (Get-Content -path ($pathdata + "\ixSgCCusto.txt")) + ":" #preenche o label
 [void]$formCcusto.ShowDialog()
